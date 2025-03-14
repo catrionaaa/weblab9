@@ -33,8 +33,8 @@ create_tables()
 @app.route('/')
 def index():
     drivers = Driver.query.all()  # Fetch all drivers from SQLite
-    return render_template('index.html', drivers=drivers)
-    
+    return render_template('templates/index.html', drivers=drivers)
+
 def home():
     return "Welcome to the F1 Team Management System!"
 
