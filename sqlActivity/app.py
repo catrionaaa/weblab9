@@ -1,6 +1,33 @@
+import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+# Store the database inside the project directory (sqlExample/database.db)
+db_folder = os.path.join(os.getcwd(), "database")
+db_path = os.path.join(db_folder, "database.db")
+
+# Ensure the database directory exists
+os.makedirs(db_folder, exist_ok=True)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class Driver(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    team = db.Column(db.String(100), nullable=False)
+
+def create_tables():
+    with app.app_context():
+        db.create_all()
+        print(f"✅ Database created at {db_path}")
+
+# Ensure the tables are created before starting Flask
+create_tables()
 
 @app.route('/')
 def home():
