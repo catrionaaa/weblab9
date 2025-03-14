@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -30,6 +31,10 @@ def create_tables():
 create_tables()
 
 @app.route('/')
+def index():
+    drivers = Driver.query.all()  # Fetch all drivers from SQLite
+    return render_template('index.html', drivers=drivers)
+    
 def home():
     return "Welcome to the F1 Team Management System!"
 
