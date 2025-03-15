@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask import render_template
+from flask import render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -30,7 +30,16 @@ def create_tables():
 # Ensure the tables are created before starting Flask
 create_tables()
 
-@app.route('/')
+
+@app.route('/add', methods=['POST'])
+def add_driver():
+    name = request.form['name']
+    team = request.form['team']
+    new_driver = Driver(name=name, team=team)
+    db.session.add(new_driver)
+    db.session.commit()
+    return redirect('/')
+    
 def index():
     drivers = Driver.query.all()  # Fetch all drivers from SQLite
     return render_template('index.html', drivers=drivers)
