@@ -39,7 +39,8 @@ def add_driver():
     db.session.add(new_driver)
     db.session.commit()
     return redirect('/')
-    
+
+@app.route('/')   
 def index():
     drivers = Driver.query.all()  # Fetch all drivers from SQLite
     return render_template('index.html', drivers=drivers)
