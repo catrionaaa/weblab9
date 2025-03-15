@@ -15,7 +15,12 @@
 
     <ul>
         {% for driver in drivers %}
-            <li>{{ driver.name }} ({{ driver.team }})</li>
+        <li>
+            {{ driver.name }} ({{ driver.team }})
+            <form action="/delete/{{ driver.id }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
         {% endfor %}
     </ul>
 </body>
