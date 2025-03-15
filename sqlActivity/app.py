@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask import render_template, request, redirect
+from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
@@ -14,6 +15,8 @@ os.makedirs(db_folder, exist_ok=True)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["MONGO_URI"] = "mongodb+srv://catriona:web@your-cluster.mongodb.net/?retryWrites=true&w=majority"
+mongo = PyMongo(app)
 
 db = SQLAlchemy(app)
 
