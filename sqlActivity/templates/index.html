@@ -17,6 +17,11 @@
         {% for driver in drivers %}
         <li>
             {{ driver.name }} ({{ driver.team }})
+            <form action="/edit/{{ driver.id }}" method="POST" style="display:inline;">
+                <input type="text" name="name" value="{{ driver.name }}">
+                <input type="text" name="team" value="{{ driver.team }}">
+                <button type="submit">Update</button>
+            </form>
             <form action="/delete/{{ driver.id }}" method="POST" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>

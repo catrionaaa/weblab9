@@ -47,6 +47,14 @@ def delete_driver(id):
     db.session.commit()
     return redirect('/')
 
+@app.route('/edit/<int:id>', methods=['POST'])
+def edit_driver(id):
+    driver = Driver.query.get(id)
+    driver.name = request.form['name']
+    driver.team = request.form['team']
+    db.session.commit()
+    return redirect('/')
+
 @app.route('/')   
 def index():
     drivers = Driver.query.all()  # Fetch all drivers from SQLite
